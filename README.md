@@ -27,12 +27,15 @@ File name                            | File description
 
 ### SECURITY WARNING: 
 - You need to create `filename.tfvars` file that has AWS key pair, access and secret keys (file must have `.tfvars` extension). 
-- THIS FILE CONTAINS SENSITIVE INFORMATION, MAKE SURE THE FILE IS NOT EXPOSED TO THE INTERNET OR ANY OTHER PUBLIC PLACES. 
+### THIS FILE CONTAINS SENSITIVE INFORMATION, MAKE SURE THE FILE IS NOT EXPOSED TO THE INTERNET OR ANY OTHER PUBLIC PLACES. 
 - Terraform will use credentials in the file to create the EC2 instances.
 - the file format should be as follow:
+
 ```
 AWS_ACCESS_KEY_ID = "AWS_access_key_here"
+
 AWS_SECRET_ACCESS_KEY = "AWS_secret_key_here"
+
 key_pair_public_key = "path/to/your/key/file.pem"
 ```
 
@@ -54,7 +57,7 @@ Command execution |	Command outcome
 `bundle install` |  install the dependencies specified in the Gemfile.
   
 ### Commands needed to test with `kitchen` framework.
-- you need TO run the tests separate for each instance.
+- you need to run the tests separate for each instance.
 
 ### Commands for running CentOS test
 Command execution |	Command outcome
@@ -69,27 +72,23 @@ Command execution |	Command outcome
 ```
   ✔  operating_system: centos
      ✔  centos should eq "centos"
-  ✔  reachable_other_host: Host 54.221.186.50
+  ✔  reachable_other_host: Host 11.222.333.44
 
-     ✔  Host 54.221.186.50
+     ✔  Host 11.222.333.44
       should be reachable
 
 
 Profile Summary: 2 successful controls, 0 control failures, 0 controls skipped
 Test Summary: 2 successful, 0 failures, 0 skipped
-Verifying host ec2-54-91-74-164.compute-1.amazonaws.com of remote
 
 Profile: Extensive Kitchen-Terraform (extensive_suite)
 Version: 0.1.0
-Target:  ssh://centos@ec2-54-91-74-164.compute-1.amazonaws.com:22
 
   ✔  operating_system: centos
      ✔  centos should eq "centos"
-  ✔  reachable_other_host: Host 54.221.186.50
-
-     ✔  Host 54.221.186.50
+  ✔  reachable_other_host: Host 11.222.333.44
+     ✔  Host 11.222.333.44
       should be reachable
-
 
 Profile Summary: 2 successful controls, 0 control failures, 0 controls skipped
 Test Summary: 2 successful, 0 failures, 0 skipped
@@ -106,9 +105,9 @@ Command execution |	Command outcome
 
 ```
  Destroy complete! Resources: 11 destroyed.
-$$$$$$ Running command `terraform workspace select default` in directory /home/nikolay/test_repos/terraform_extensive_kitchen/test/fixtures/wrapper
+$$$$$$ Running command `terraform workspace select default` in directory /home/name/test_repos/terraform_extensive_kitchen/test/fixtures/wrapper
        Switched to workspace "default".
-$$$$$$ Running command `terraform workspace delete kitchen-terraform-extensive-suite-ubuntu` in directory /home/nikolay/test_repos/terraform_extensive_kitchen/test/fixtures/wrapper
+$$$$$$ Running command `terraform workspace delete kitchen-terraform-extensive-suite-ubuntu` in directory /home/name/test_repos/terraform_extensive_kitchen/test/fixtures/wrapper
        Deleted workspace "kitchen-terraform-extensive-suite-ubuntu"!
        Finished destroying <extensive-suite-ubuntu> (1m24.83s).
        Finished testing <extensive-suite-ubuntu> (3m20.36s).
