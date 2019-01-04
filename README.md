@@ -25,16 +25,15 @@ File name                            | File description
 - Clone the repository to your local computer: `git clone git@github.com:nikcbg/terraform_extensive_kitchen`.
 - Go to the cloned repo on your computer: `cd terraform_extensive_kitchen`.
 
-### SECURITY WARNING: 
-- You need to create `filename.tfvars` file that has AWS key pair, access and secret keys (file must have `.tfvars` extension). 
-### THIS FILE CONTAINS SENSITIVE INFORMATION, MAKE SURE THE FILE IS NOT EXPOSED TO THE INTERNET OR ANY OTHER PUBLIC PLACES. 
+### SECURITY WARNING: THE FILE MENTIONED BELOW CONTAINS SENSITIVE INFORMATION, MAKE SURE THE FILE IS NOT EXPOSED TO THE INTERNET OR ANY OTHER PUBLIC PLACES.
+- You need to create `filename.tfvars` file that has AWS key pair, access and secret keys (file must have `.tfvars` extension).  
 - Terraform will use credentials in the file to create the EC2 instances.
 - the file format should be as follow:
 
 ```
-AWS_ACCESS_KEY_ID = "AWS_access_key_here"
+AWS_ACCESS_KEY_ID = "AWS access key here"
 
-AWS_SECRET_ACCESS_KEY = "AWS_secret_key_here"
+AWS_SECRET_ACCESS_KEY = "AWS secret key here"
 
 key_pair_public_key = "path/to/your/key/file.pem"
 ```
