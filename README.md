@@ -10,7 +10,7 @@ File name                            | File description
 `test/fixtures/wrapper/main.tf` | test fixture Terraform configuration to invoke the Terraform module under test.
 `test/fixtures/wrapper/variables.tf` | test fixture Terraform configuration to invoke the Terraform module under test.
 `test/fixtures/wrapper/outputs.tf` | test fixture Terraform configuration to invoke the Terraform module under test.
-`generate_ssh_key.sh` | `bash` script for genreating `SSH` key to authenticate with the AWS EC2 instances.
+`test/generate_ssh_key.sh` | `bash` script for genreating `SSH` key to authenticate with the AWS EC2 instances.
 `.kitchen.yml` | configuration file for `kitchen` test framework.
 `Gemfile` | used for ruby dependencies.
 `main.tf` | Terraform module configuration file for building EC2 instance.
@@ -59,13 +59,38 @@ Command execution |	Command outcome
 - you need to run the tests separate for each instance.
 
 ### Commands for running CentOS test
+- execute the scripts below: 
+
+```
+function drop_aws_sts_session {
+  unset AWS_ACCESS_KEY_ID
+  unset AWS_DEFAULT_REGION
+  unset AWS_SECRET_ACCESS_KEY
+  unset AWS_SESSION_TOKEN
+}
+```
+```
+function export_aws_sts_session {
+  drop_aws_sts_session
+  session="$(aws sts get-session-token --output=json)"
+  AWS_ACCESS_KEY_ID="$(echo $session | jq -r .Credentials.AccessKeyId)"
+  AWS_DEFAULT_REGION="$1"
+  AWS_SECRET_ACCESS_KEY="$(echo $session | jq -r .Credentials.SecretAccessKey)"
+  AWS_SESSION_TOKEN="$(echo $session | jq -r .Credentials.SessionToken)"
+  export AWS_ACCESS_KEY_ID
+  export AWS_DEFAULT_REGION
+  export AWS_SECRET_ACCESS_KEY
+  export AWS_SESSION_TOKEN
+}
+```
 Command execution |	Command outcome
 ------------------|--------------------------
-`bundle exec kitchen destroy centos` | destroy any existing Terraform state in us-east-1.
+`export_aws_sts_session "us-east-1"` | initialize conection to AWS us-east-1 region.
+`bundle exec kitchen destroy centos` | destroy any existing Terraform state in us-east-1
 `bundle exec kitchen create centos` | initialize the Terraform working directory and select a new Terraform workspace.
 `bundle exec kitchen converge centos` | apply the Terraform root module to the Terraform state.
-`bundle exec kitchen verify centos` | Test the Terraform state using the InSpec controls.
-`bundle exec kitchen destroy centos` |  Destroy the Terraform state using the Terraform fixture configuration.
+`bundle exec kitchen verify centos` | test the Terraform state using the InSpec controls.
+`bundle exec kitchen destroy centos` | destroy the Terraform state using the Terraform fixture configuration.
 
 - If the commands complete successfully the output will display the following:
 ```
@@ -98,6 +123,7 @@ Test Summary: 2 successful, 0 failures, 0 skipped
 ### Commands for running Ubuntu test
 Command execution |	Command outcome
 ------------------|--------------------------
+`export_aws_sts_session "us-west-2"` | initialize conection to AWS us-west-2 region.
 `bundle exec kitchen test ubuntu` | automatically build, test and destroy kitchen environment for Ubuntu instance.
 
 -  If the command completes successfully the output will display the following:
