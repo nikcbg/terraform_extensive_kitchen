@@ -55,10 +55,8 @@ Command execution |	Command outcome
 `gem install bundler`	| to install gem which is package manager for ruby.
 `bundle install` |  install the dependencies specified in the Gemfile.
   
-### Commands needed to test with `kitchen` framework.
+### Performing test with `kitchen` framework.
 - you need to run the tests separate for each instance.
-
-### Commands for running CentOS test
 - execute the scripts below: 
 
 ```
@@ -83,6 +81,9 @@ function export_aws_sts_session {
   export AWS_SESSION_TOKEN
 }
 ```
+
+### Commands for running CentOS test
+
 Command execution |	Command outcome
 ------------------|--------------------------
 `export_aws_sts_session "us-east-1"` | initialize conection to AWS us-east-1 region.
